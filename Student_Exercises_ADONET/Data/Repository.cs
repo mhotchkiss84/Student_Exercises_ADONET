@@ -19,6 +19,7 @@ namespace Student_Exercises_ADONET.Data
                 return new SqlConnection(_connectionString);
             }
         }
+        //A method to get all exercises in the database
         public List<Exercise> GetAllExercises()
         {
             using (SqlConnection conn = Connection)
@@ -70,5 +71,8 @@ namespace Student_Exercises_ADONET.Data
                 }
             }
         }
+        //A method to get all exercises by language type i.e. javascript
+        //Will be like the above method except it needs a WHERE
+
     }
 }

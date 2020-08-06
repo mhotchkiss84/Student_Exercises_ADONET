@@ -23,7 +23,7 @@ namespace Student_Exercises_ADONET
             //Creating a new list to store
             List<Exercise> allExercises = Repo.GetAllExercises();
 
-            //Using a loop to go through the list and print the exercise Id and the exercise name
+            //Using a loop to go through the list and print the exercise Id and the exercise name   
             foreach (Exercise exer in allExercises)
             {
                 Console.WriteLine($"{exer.Id} {exer.Name}");
