@@ -29,7 +29,8 @@ namespace Student_Exercises_ADONET
                 Console.WriteLine($"{exer.Id} {exer.Name}");
             }
 
-            // Exercise 2: Find all the exercises in the database where the language is JavaScript.
+            // Exercise 2: 
+            //Find all the exercises in the database where the language is JavaScript.
             Console.WriteLine("Getting exercises by language: javascript");
             Console.WriteLine();
 
@@ -40,6 +41,9 @@ namespace Student_Exercises_ADONET
             {
                 Console.WriteLine($"{exer.Id} {exer.Name}");
             }
+
+            //Exercise 3: 
+            //Insert a new exercise into the database.
         }
     }
 }
