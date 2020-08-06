@@ -126,5 +126,31 @@ namespace Student_Exercises_ADONET.Data
             }
         }
 
+        /// <summary>
+        ///  Add a new department to the database
+        ///   NOTE: This method sends data to the database,
+        ///   it does not get anything from the database, so there is nothing to return.
+        /// </summary>
+        public void AddExercise(Exercise exercise)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    // These SQL parameters are annoying. Why can't we use string interpolation?
+                    // ... sql injection attacks!!!
+                    cmd.CommandText = "INSERT INTO Exercise (Name, Language) OUTPUT INSERTED.Id Values (@Name, @Language)";
+                    cmd.Parameters.Add(new SqlParameter("@Name", exercise.Name));
+                    cmd.Parameters.Add(new SqlParameter("@Language", exercise.Language));
+                    int Id = (int)cmd.ExecuteScalar();
+
+                    exercise.Id = Id;
+                }
+            }
+
+            // when this method is finished we can look in the database and see the new department.
+        }
+
     }
 }

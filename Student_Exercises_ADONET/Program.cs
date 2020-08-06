@@ -44,6 +44,17 @@ namespace Student_Exercises_ADONET
 
             //Exercise 3: 
             //Insert a new exercise into the database.
+
+            Exercise NewExercise = new Exercise
+            {
+                Name = "Hello World!",
+                Language = "C#"
+            };
+
+            Repo.AddExercise(NewExercise);
+
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("Added the new exercise!");
         }
     }
 }
