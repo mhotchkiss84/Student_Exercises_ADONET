@@ -8,13 +8,11 @@ namespace Student_Exercises_ADONET.Data
 {
     class Repository
     {
-        ///  Represents a connection to the database.
-        ///   This is a "tunnel" to connect the application to the database.
+        ///Tunnel to connect the application to the database.
         public SqlConnection Connection
         {
             get
             {
-                // If broken check spelling in Catalog
                 string _connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=StudentExercises;Integrated Security=True";
                 return new SqlConnection(_connectionString);
             }
@@ -36,7 +34,7 @@ namespace Student_Exercises_ADONET.Data
                     // Execute the SQL in the database and get a "reader" that will give us access to the data.
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    // A list to hold the departments we retrieve from the database.
+                    // A list to hold the exercises we retrieve from the database.
                     List<Exercise> Exercises = new List<Exercise>();
 
                     // Read() will return true if there's more data to read
@@ -52,21 +50,21 @@ namespace Student_Exercises_ADONET.Data
                         int NameColumnPosition = reader.GetOrdinal("Name");
                         string NameValue = reader.GetString(NameColumnPosition);
 
-                        // Now let's create a new department object using the data from the database.
+                        // Now let's create a new exercise object using the data from the database.
                         Exercise Exercise = new Exercise
                         {
                             Id = idValue,
                             Name = NameValue
                         };
 
-                        // ...and add that department object to our list.
+                        // ...and add that exercise object to our list.
                         Exercises.Add(Exercise);
                     }
 
-                    // We should Close() the reader. Unfortunately, a "using" block won't work here.
+                    // We should Close() the reader
                     reader.Close();
 
-                    // Return the list of departments who whomever called this method.
+                    // Return the list of exercises
                     return Exercises;
                 }
             }
