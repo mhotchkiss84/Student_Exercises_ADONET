@@ -126,11 +126,8 @@ namespace Student_Exercises_ADONET.Data
             }
         }
 
-        /// <summary>
-        ///  Add a new department to the database
-        ///   NOTE: This method sends data to the database,
-        ///   it does not get anything from the database, so there is nothing to return.
-        /// </summary>
+        //Exercise 3: 
+        //Insert a new exercise into the database.
         public void AddExercise(Exercise exercise)
         {
             using (SqlConnection conn = Connection)
@@ -138,8 +135,6 @@ namespace Student_Exercises_ADONET.Data
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    // These SQL parameters are annoying. Why can't we use string interpolation?
-                    // ... sql injection attacks!!!
                     cmd.CommandText = "INSERT INTO Exercise (Name, Language) OUTPUT INSERTED.Id Values (@Name, @Language)";
                     cmd.Parameters.Add(new SqlParameter("@Name", exercise.Name));
                     cmd.Parameters.Add(new SqlParameter("@Language", exercise.Language));
@@ -148,9 +143,59 @@ namespace Student_Exercises_ADONET.Data
                     exercise.Id = Id;
                 }
             }
-
-            // when this method is finished we can look in the database and see the new department.
         }
 
+        //Exercise 4:
+        //Find all instructors in the database. Include each instructor's cohort.
+        public List<Instructor> GetAllInstructors()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                // Note, we must Open() the connection
+                conn.Open();
+
+                // We must "use" commands too.
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    // Here we setup the command with the SQL we want to execute before we execute it.
+                    cmd.CommandText = "SELECT i.Id,i.FirstName,i.LastName,c.Name FROM Instructor i LEFT JOIN Cohort c on i.CohortId = c.Id";
+
+                    // Execute the SQL in the database and get a "reader" that will give us access to the data.
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    // A list to hold the instructors we retrieve from the database.
+                    List<Instructor> Instructors = new List<Instructor>();
+
+                    // Read() will return true if there's more data to read
+                    while (reader.Read())
+                    {
+                        int idColumnPosition = reader.GetOrdinal("Id");
+
+                        // We user the reader's GetXXX methods to get the value for a particular ordinal.
+                        int idValue = reader.GetInt32(idColumnPosition);
+                        int FirstNameColumnPosition = reader.GetOrdinal("FirstName");
+                        string FirstNameValue = reader.GetString(FirstNameColumnPosition);
+                        int LastNameColumnPosition = reader.GetOrdinal("LastName");
+                        string LastNameValue = reader.GetString(LastNameColumnPosition);
+                        int CohortNameColumnPosition = reader.GetOrdinal("Name");
+                        string CohortNameValue = reader.GetString(CohortNameColumnPosition);
+
+                        // New instructor object
+                        Instructor  instructor = new Instructor
+                        {
+                            Id = idValue,
+                            FirstName = FirstNameValue,
+                            LastName = LastNameValue, 
+                            Cohort = CohortNameValue
+                        };
+                        Instructors.Add(instructor);
+                    }
+                    reader.Close();
+
+                    // Return the list of instructors
+                    return Instructors;
+                }
+            }
+        }
     }
 }

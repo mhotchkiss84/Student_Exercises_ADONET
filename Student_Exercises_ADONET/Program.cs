@@ -45,16 +45,31 @@ namespace Student_Exercises_ADONET
             //Exercise 3: 
             //Insert a new exercise into the database.
 
-            Exercise NewExercise = new Exercise
+            //Exercise NewExercise = new Exercise
+            //{
+            //    Name = "ADONET",
+            //    Language = "C#"
+            //};
+
+            //Repo.AddExercise(NewExercise);
+
+            //Console.WriteLine("-------------------------------");
+            //Console.WriteLine("Added the new exercise!");
+
+            //Exercise 4:
+            //Find all instructors in the database. Include each instructor's cohort.
+            Console.WriteLine("Getting All Instructors:");
+            Console.WriteLine();
+
+            //Creating a new list to store the instructors
+            List<Instructor> allInstructors = Repo.GetAllInstructors();
+
+            //Using a loop to go through the list and print the instructor Id and the name their Cohort
+            foreach (Instructor instr in allInstructors)
             {
-                Name = "Hello World!",
-                Language = "C#"
-            };
+                Console.WriteLine($"{instr.Id} {instr.FirstName} {instr.LastName} {instr.Cohort}");
+            }
 
-            Repo.AddExercise(NewExercise);
-
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("Added the new exercise!");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Student_Exercises_ADONET.Models
         public string SlackHandle { get; set; }
         public int CohortId { get; set; }
         //TODO: Ask about this
-        public Cohort Cohort { get; set; }
+        public string Cohort { get; set; }
         public string Specialty { get; set; }
         //Add Method for assigning an exercise
     }
