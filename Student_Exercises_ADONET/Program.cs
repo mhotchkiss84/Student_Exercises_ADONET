@@ -70,6 +70,9 @@ namespace Student_Exercises_ADONET
                 Console.WriteLine($"{instr.Id} {instr.FirstName} {instr.LastName} {instr.Cohort}");
             }
 
+            //Exercise 5:
+            //Insert a new instructor into the database. Assign the instructor to an existing cohort.
+
         }
     }
 }
